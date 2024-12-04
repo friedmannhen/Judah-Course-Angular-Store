@@ -4,28 +4,37 @@ import { CommonModule } from '@angular/common';
 import { IProductInCart } from '../../models';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, MatIconModule,RouterLink],
+  imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
 export class CartComponent {
   constructor(private cartService: CartManagerService) {}
   public products: IProductInCart[];
-  public totalPrice$: number;
+  // public totalPrice$: number;
+  public totalPrice: number;
 
   ngOnInit(): void {
     this.cartService.getFromLocalStorage();
-    this.cartService.getTotalPriceAmount().subscribe((data) => {
-      this.totalPrice$ = data;
-    });
-    this.cartService.getCartProducts().subscribe((data) => {
-      this.products = data;
-    });
-    
+    this.cartService
+      .getCartProducts()
+      .pipe(
+        tap((data) => {
+          this.totalPrice = 0;
+          data.forEach((item) => {
+            this.totalPrice =
+              this.totalPrice + item.product.price * item.amount;
+          });
+        })
+      )
+      .subscribe((data) => {
+        this.products = data;
+      });
   }
   ngOnDestroy(): void {}
 
