@@ -52,16 +52,17 @@
     font-size: 1.2rem;
   }
   .title{
+    h2{
+      max-width: 520px;
+    }
     display: flex;
     align-items: center;
     cursor: pointer;
-    width: 650px;
-    gap:20px
+    justify-content: space-between;
   }
   .remove-btn {
     cursor: pointer;
     color:rgb(75, 75, 75);
-    margin-left: auto;
   }
   
   .remove-btn:hover {
