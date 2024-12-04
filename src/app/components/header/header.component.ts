@@ -6,6 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CartManagerService } from '../../services/cart-manager.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -24,11 +25,19 @@ import { CartManagerService } from '../../services/cart-manager.service';
 export class HeaderComponent {
   constructor(private cartService: CartManagerService) {}
 
-  public amountInCart$: number;
+  public amountInCart: number;
   ngOnInit(): void {
     this.cartService.getFromLocalStorage();
-    this.cartService.getTotalProductsAmount().subscribe((data) => {
-      this.amountInCart$ = data;
-    });
+    this.cartService
+      .getCartProducts()
+      .pipe(
+        tap((data) => {
+          this.amountInCart = 0;
+          data.forEach((item) => {
+            this.amountInCart = this.amountInCart + item.amount;
+          });
+        })
+      )
+      .subscribe();
   }
 }

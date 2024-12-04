@@ -16,7 +16,6 @@ import { tap } from 'rxjs';
 export class CartComponent {
   constructor(private cartService: CartManagerService) {}
   public products: IProductInCart[];
-  // public totalPrice$: number;
   public totalPrice: number;
 
   ngOnInit(): void {
