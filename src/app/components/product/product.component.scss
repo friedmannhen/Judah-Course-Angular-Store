@@ -21,6 +21,7 @@
   .main-img {
     height: 140px;
     width: 120px;
+    cursor: pointer;
   }
 }
 .info-icon {
@@ -44,8 +45,9 @@
 .cat-num {
   position: absolute;
   bottom: 10px;
-  right: 5px;
+  right: 10px;
   font-size: 12px;
+  color: grey;
 }
 .description {
   max-height: 70px;

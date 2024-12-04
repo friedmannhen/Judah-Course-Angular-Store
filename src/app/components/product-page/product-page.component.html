@@ -1,20 +1,20 @@
-<div class="page-centered">
+<div class="page-centered" *ngIf="product$ | async as prod">
   <div class="product-container">
     <div class="product-image">
-      <img [src]="product.image" [alt]="product.title" />
+      <img [src]="prod.image" [alt]="prod.title" />
     </div>
 
     <div class="product-details">
-      <h1>{{ product.title }}</h1>
-      <p class="category">Category: {{ product.category }}</p>
-      <p class="description">{{ product.description }}</p>
-      <p class="price">Price: ${{ product.price}}</p>
+      <h1>{{ prod.title }}</h1>
+      <p class="category">Category: {{ prod.category }}</p>
+      <p class="description">{{ prod.description }}</p>
+      <p class="price">Price: ${{ prod.price}}</p>
 
       <div class="rating">
-        <p>Rating: {{ product.rating.rate }} / 5</p>
-        <p>({{ product.rating.count }} reviews)</p>
+        <p>Rating: {{ prod.rating.rate }} / 5</p>
+        <p>({{ prod.rating.count }} reviews)</p>
       </div>
-      <button class="add-to-cart-btn">Add to Cart</button>
+      <button class="add-to-cart-btn" (click)="addToCart(prod)">Add to Cart</button>
     </div>
   </div>
 </div>

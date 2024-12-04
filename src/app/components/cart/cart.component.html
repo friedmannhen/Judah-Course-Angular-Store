@@ -1,0 +1,31 @@
+
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+    <div *ngIf="products.length > 0; else emptyCart" class="cart-items">
+        <div class="cart-item" *ngFor="let prod of products; let i = index">
+            <img [routerLink]="['/product',prod.product.id]" [src]="prod.product.image" alt="{{ prod.product.title }}" class="product-image" />
+            <div class="product-details">
+                <h2 class="title">{{ prod.product.title }} 
+            <mat-icon class="remove-btn" (click)="Delete(prod)">delete</mat-icon>
+
+                </h2>
+                <p>{{ prod.product.description }}</p>
+                <p class="data-line"><b>Category </b> {{ prod.product.category }}</p>
+                <p class="data-line"><b>Price </b> ${{ prod.product.price }}</p>
+                <p class="data-line"><b>Rating </b>{{ prod.product.rating.rate }} ({{ prod.product.rating.count }} reviews)</p>
+            </div>
+            <div class="product-controls">
+                <span>Amount : </span>
+                <mat-icon class="amountIcons" (click)="removeAmount(prod)">remove</mat-icon>{{prod.amount}}
+                <mat-icon class="amountIcons" (click)="addAmount(prod)">add</mat-icon>
+            </div>
+        </div>
+        <div class="cart-total">
+            <h3>Total: ${{totalPrice$ | number:'1.2-2'}}</h3>
+        </div>
+    </div>
+
+    <ng-template #emptyCart>
+        <h2 style="color:grey">Your cart is empty...</h2>
+    </ng-template>
+</div>

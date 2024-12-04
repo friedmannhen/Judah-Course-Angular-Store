@@ -2,15 +2,33 @@ import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { MatBadgeModule } from '@angular/material/badge';
+import { CartManagerService } from '../../services/cart-manager.service';
+
 @Component({
   selector: 'app-header',
-  standalone:true,
-  imports: [MatMenuModule,MatToolbarModule,MatIconModule,MatIconButton,RouterModule],
+  standalone: true,
+  imports: [
+    MatBadgeModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatIconButton,
+    RouterModule,
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  constructor(private cartService: CartManagerService) {}
 
+  public amountInCart$: number;
+  ngOnInit(): void {
+    this.cartService.getFromLocalStorage();
+    this.cartService.getTotalProductsAmount().subscribe((data) => {
+      this.amountInCart$ = data;
+    });
+  }
 }

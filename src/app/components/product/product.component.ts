@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { IProduct } from '../../models';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { CartManagerService } from '../../services/cart-manager.service';
 
 @Component({
   selector: 'app-product',
@@ -13,5 +14,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './product.component.scss',
 })
 export class ProductComponent {
+  constructor(private cartService: CartManagerService) {}
+
+
   @Input() product: IProduct;
+
+  addToCart(){
+    this.cartService.addToCart(this.product);
+  }
 }

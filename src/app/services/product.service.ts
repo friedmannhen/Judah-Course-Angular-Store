@@ -12,7 +12,7 @@ export class ProductService {
     return this.http.get<IProduct[]>('https://fakestoreapi.com/products');
   }
   getProductById(id: string): Observable<IProduct> {
-    console.log('serviceID ', id);
+    // console.log('serviceID ', id);
     return this.http.get<IProduct>(`https://fakestoreapi.com/products/${id}`);
   }
 }
