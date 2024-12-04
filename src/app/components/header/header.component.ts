@@ -27,7 +27,6 @@ export class HeaderComponent {
 
   public amountInCart: number;
   ngOnInit(): void {
-    this.cartService.getFromLocalStorage();
     this.cartService
       .getCartProducts()
       .pipe(
