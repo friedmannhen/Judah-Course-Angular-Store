@@ -15,8 +15,7 @@
                 <p class="data-line"><b>Rating </b>{{ prod.product.rating.rate }} ({{ prod.product.rating.count }} reviews)</p>
             </div>
             <div class="product-controls">
-                <span>Amount : </span>
-                <mat-icon class="amountIcons" (click)="removeAmount(prod)">remove</mat-icon>{{prod.amount}}
+                <mat-icon class="amountIcons" (click)="removeAmount(prod)">remove</mat-icon>x{{prod.amount}}
                 <mat-icon class="amountIcons" (click)="addAmount(prod)">add</mat-icon>
             </div>
         </div>
