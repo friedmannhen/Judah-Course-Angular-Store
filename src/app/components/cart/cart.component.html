@@ -6,13 +6,13 @@
                 class="product-image" />
             <div class="product-details">
                 <div class="title">
-                    <h2>{{ prod.product.title }} </h2>
+                    <h2 [routerLink]="['/product',prod.product.id]">{{ prod.product.title }} </h2>
                     <mat-icon class="remove-btn" (click)="Delete(prod)">delete</mat-icon>
                 </div>
 
                 <p>{{ prod.product.description }}</p>
                 <p class="data-line"><b>Category </b> {{ prod.product.category }}</p>
-                <p class="data-line"><b>Price </b> ${{ prod.product.price }}</p>
+                <p class="data-line"><b>Price </b> {{ prod.product.price| currency:'USD' }}</p>
                 <p class="data-line"><b>Rating </b>{{ prod.product.rating.rate }} ({{ prod.product.rating.count }}
                     reviews)</p>
             </div>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="cart-total">
-            <h3>Total: ${{totalPrice$ | number:'1.2-2'}}</h3>
+            <h3>Total: {{totalPrice$ | currency:'USD'}}</h3>
         </div>
     </div>
 
