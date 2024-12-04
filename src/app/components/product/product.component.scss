@@ -56,9 +56,9 @@
 }
 mat-card-title {
   font-size: 17px;
-  height: 40px;
+  max-height: 80px;
   overflow: auto;
-  max-width: 195px;
+  max-width: 250px;
   padding-right: 0px !important;
 }
 mat-card-subtitle {
