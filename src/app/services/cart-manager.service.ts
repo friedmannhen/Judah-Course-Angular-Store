@@ -11,15 +11,10 @@ export class CartManagerService {
   private productsSubject$: BehaviorSubject<IProductInCart[]> =
     new BehaviorSubject([]);
 
-  addToCart(product: IProduct) {
+  addToCart(product: IProduct): boolean {
     let prodArr = this.productsSubject$.value;
-    let exists: boolean = false;
-    prodArr.forEach((prod) => {
-      if (prod.product.id == product.id) {
-        exists = true;
-      }
-    });
-    if (exists) return;
+    if (this.checkIfInCart(product)) return false;
+
     const prod: IProductInCart = {
       product: product,
       amount: 1,
@@ -28,6 +23,7 @@ export class CartManagerService {
     prodArr.push(prod);
     this.productsSubject$.next(prodArr);
     this.saveToLocalStorage();
+    return true;
   }
 
   addToAmount(product: IProductInCart) {
@@ -67,12 +63,25 @@ export class CartManagerService {
     return this.productsSubject$.asObservable();
   }
   getFromLocalStorage() {
-    this.productsSubject$.next(JSON.parse(localStorage.getItem('cartItems') || '[]'));
+    this.productsSubject$.next(
+      JSON.parse(localStorage.getItem('cartItems') || '[]')
+    );
   }
   saveToLocalStorage() {
     localStorage.setItem(
       'cartItems',
       JSON.stringify(this.productsSubject$.value)
     );
+  }
+
+  checkIfInCart(product: any): boolean {
+    let prodArr = this.productsSubject$.value;
+    let exists: boolean = false;
+    if (product.id) {
+      exists = prodArr.some((item) => item.product.id === product.id);
+    } else {
+      exists = prodArr.some((item) => item.product.id === product.product.id);
+    }
+    return exists;
   }
 }

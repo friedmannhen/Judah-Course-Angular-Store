@@ -1,20 +1,25 @@
-<div class="page-centered" *ngIf="product$ | async as prod">
+<div class="page-centered">
   <div class="product-container">
     <div class="product-image">
-      <img [src]="prod.image" [alt]="prod.title" />
+      <img [src]="product.image" [alt]="product.title" />
     </div>
 
     <div class="product-details">
-      <h1>{{ prod.title }}</h1>
-      <p class="category">Category: {{ prod.category }}</p>
-      <p class="description">{{ prod.description }}</p>
-      <p class="price">Price: ${{ prod.price}}</p>
+      <h1>{{ product.title }}</h1>
+      <p class="category">Category: {{ product.category }}</p>
+      <p class="description">{{ product.description }}</p>
+      <p class="price">Price: ${{ product.price}}</p>
 
       <div class="rating">
-        <p>Rating: {{ prod.rating.rate }} / 5</p>
-        <p>({{ prod.rating.count }} reviews)</p>
+        <p>Rating: {{ product.rating.rate }} / 5</p>
+        <p>({{ product.rating.count }} reviews)</p>
       </div>
-      <button class="add-to-cart-btn" (click)="addToCart(prod)">Add to Cart</button>
+      <button *ngIf="!existInCart"  mat-raised-button (click)="addToCart(product)">Add to Cart<mat-icon>
+          add_shopping_cart
+        </mat-icon></button>
+      <button *ngIf="existInCart" disabled  mat-raised-button >In Cart<mat-icon>
+          check_circle
+        </mat-icon></button>
     </div>
   </div>
 </div>

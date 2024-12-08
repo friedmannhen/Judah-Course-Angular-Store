@@ -11,10 +11,10 @@
 .header {
   cursor: pointer;
 }
-.header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
-}
+// .header-image {
+//   background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+//   background-size: cover;
+// }
 .image-cont {
   display: flex;
   justify-content: center;
@@ -98,3 +98,4 @@ mat-card-content {
     z-index: -1;
   }
 }
+
