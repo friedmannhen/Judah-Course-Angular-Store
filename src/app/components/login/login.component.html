@@ -1,0 +1,22 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="userForm">
+    <h2 mat-dialog-title>Login</h2>
+    <mat-dialog-content>
+        <div class="inputs-container">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email">
+                <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+                    Email is required.
+                </div>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button type="submit" [disabled]="userForm.invalid">Login</button>
+    </mat-dialog-actions>
+</form>

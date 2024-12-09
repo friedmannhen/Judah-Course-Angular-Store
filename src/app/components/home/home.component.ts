@@ -29,16 +29,10 @@ export class HomeComponent {
   ngOnInit(): void {
     this.productservice.getProducts().subscribe((data) => {
       this.products = data;
-      // console.log('all product: ', this.products);
       this.products.forEach((product) => {
-        if(!this.categoriesList.includes(product.category))
-        this.categoriesList.push(product.category);
+        if (!this.categoriesList.includes(product.category))
+          this.categoriesList.push(product.category);
       });
-      // this.categoriesList = this.categoriesList.filter(
-      //   (product, index) => this.categoriesList.indexOf(product) === index
-      // );
-      // console.log('categories: ', this.categoriesList);
-      // console.log('active categories',this.activeCategories)
     });
   }
 }

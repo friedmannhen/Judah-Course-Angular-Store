@@ -28,6 +28,6 @@
         check_circle
       </mat-icon></button>
   </mat-card-actions>
-  <mat-icon class="info-icon" [routerLink]="['/product',product.id]">info</mat-icon>
+  <mat-icon *ngIf="isLoggedIn$ | async" class="edit-icon" matTooltip="Edit" (click)="openEdit()">edit</mat-icon>
   <i class="cat-num">Catalog Number: {{product.id}}</i>
 </mat-card>

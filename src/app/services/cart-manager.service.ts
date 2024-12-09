@@ -84,4 +84,39 @@ export class CartManagerService {
     }
     return exists;
   }
+  sort(sortBy: string) {
+    let prodArr = this.productsSubject$.value;
+    switch (sortBy) {
+      case 'categories':
+        prodArr.sort((a, b) => {
+          if (a.product.category < b.product.category) return -1;
+          if (a.product.category > b.product.category) return 1;
+          return 0; // Equal categories
+        });
+        break;
+      case 'id':
+        prodArr.sort((a, b) => {
+          if (a.product.id < b.product.id) return -1;
+          if (a.product.id > b.product.id) return 1;
+          return 0; // Equal categories
+        });
+        break;
+      case 'price':
+        prodArr.sort((a, b) => {
+          if (a.product.price < b.product.price) return -1;
+          if (a.product.price > b.product.price) return 1;
+          return 0; // Equal categories
+        });
+        break;
+      case 'rating':
+        prodArr.sort((a, b) => {
+          if (a.product.rating.rate < b.product.rating.rate ) return -1;
+          if (a.product.rating.rate  > b.product.rating.rate ) return 1;
+          return 0; // Equal categories
+        });
+        break;
+      }
+    this.productsSubject$.next(prodArr);
+    this.saveToLocalStorage();
+  }
 }

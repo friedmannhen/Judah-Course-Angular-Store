@@ -1,32 +1,65 @@
 <div class="cart-container">
     <h1>Shopping Cart</h1>
-    <div *ngIf="products.length > 0; else emptyCart" class="cart-items">
-        <div class="cart-item" *ngFor="let prod of products; let i = index">
-            <img [routerLink]="['/product',prod.product.id]" [src]="prod.product.image" alt="{{ prod.product.title }}"
-                class="product-image" />
-            <div class="product-details">
-                <div class="title">
-                    <h2 [routerLink]="['/product',prod.product.id]">{{ prod.product.title }} </h2>
-                    <mat-icon class="remove-btn" (click)="Delete(prod)">delete</mat-icon>
-                </div>
-
-                <p>{{ prod.product.description }}</p>
-                <p class="data-line"><b>Category </b> {{ prod.product.category }}</p>
-                <p class="data-line"><b>Price </b> {{ prod.product.price| currency:'USD' }}</p>
-                <p class="data-line"><b>Rating </b>{{ prod.product.rating.rate }} ({{ prod.product.rating.count }}
-                    reviews)</p>
-            </div>
-            <div class="product-controls">
-                <mat-icon class="amountIcons" (click)="removeAmount(prod)">remove</mat-icon>x{{prod.amount}}
-                <mat-icon class="amountIcons" (click)="addAmount(prod)">add</mat-icon>
-            </div>
-        </div>
-        <div class="cart-total">
-            <h3>Total: {{totalPrice | currency:'USD'}}</h3>
-        </div>
+    <div class="action-buttons">
+        <mat-form-field >
+            <mat-label>Sort By</mat-label>
+            <mat-select (valueChange)="sort($event)">
+              <mat-option value=""></mat-option>
+              <mat-option value="price">Price</mat-option>
+              <mat-option value="categories">Categories</mat-option>
+              <mat-option value="rating">Rating</mat-option>
+              <mat-option value="id">Id</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <button mat-button (click)="accordion().openAll()">Expand All</button>
+        <button mat-button (click)="accordion().closeAll()">Collapse All</button>
     </div>
+    <mat-accordion class="headers-align" multi>
+        <ng-container *ngIf="products.length > 0; else emptyCart" >
+            <mat-expansion-panel *ngFor="let prod of products; let i = index" hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title> {{ prod.product.title }}</mat-panel-title>
+                    <mat-panel-description>
+                        <div class="price-amount">
+                            <span>{{ prod.product.price| currency:'USD'}}</span>
+                            <span>x{{prod.amount}}</span>
+                        </div>
+                        <span>{{ prod.product.category }}</span>
 
-    <ng-template #emptyCart>
-        <h2 style="color:grey">Your cart is empty...</h2>
-    </ng-template>
+                        <mat-icon class="remove-btn" (click)="Delete(prod)">delete</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <img [routerLink]="['/product',prod.product.id]" [src]="prod.product.image"
+                    alt="{{ prod.product.title }}" class="product-image" />
+                <div class="product-details">
+                    <p>{{ prod.product.description }}</p>
+                    <p class="data-line"><b>Category </b> {{ prod.product.category }}</p>
+                    <p class="data-line"><b>Price </b> {{ prod.product.price| currency:'USD' }}</p>
+                    <p class="data-line"><b>Rating </b>{{ prod.product.rating.rate }}/5 ({{ prod.product.rating.count }}
+                        reviews)</p>
+                    <p class="data-line"><b>Catalog Number </b>{{ prod.product.id }}</p>
+                </div>
+                <div class="product-controls">
+                    <mat-icon class="amountIcons" (click)="removeAmount(prod)">remove</mat-icon>x{{prod.amount}}
+                    <mat-icon class="amountIcons" (click)="addAmount(prod)">add</mat-icon>
+                </div>
+            </mat-expansion-panel>
+        </ng-container>
+        <mat-expansion-panel disabled>
+            <mat-expansion-panel-header>
+                <mat-panel-title>TOTAL </mat-panel-title>
+                <mat-panel-description>
+                    {{totalPrice | currency:'USD'}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <ng-template #emptyCart>
+            <mat-expansion-panel disabled>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>Your Cart Is Empty... </mat-panel-title>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+        </ng-template>
+
+    </mat-accordion>
 </div>

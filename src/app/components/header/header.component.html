@@ -12,15 +12,27 @@
                 </mat-icon>
                 <span>About</span>
             </a>
+           
         </mat-menu>
     </button>
-    <span class="title" [routerLink]="['']">My Store</span>
+    <span class="title" [routerLink]="['']">KSB</span>
     <span class="spacer"></span>
-    <button mat-icon-button class="favorite-icon">
-        <mat-icon>paid</mat-icon>
+    <button *ngIf="!(isLoggedIn$ | async)" mat-icon-button class="favorite-icon" (click)="openLogin()" matTooltip="Login">
+        <mat-icon>login</mat-icon>
     </button>
-    <button mat-icon-button [routerLink]="['cart']">
-        <mat-icon matBadge="{{amountInCart}}"  >
+    <button *ngIf="isLoggedIn$ | async" mat-icon-button class="favorite-icon" (click)="logout()" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+    </button>
+    <!-- <button mat-icon-button class="favorite-icon">
+        <mat-icon>paid</mat-icon>
+    </button> -->
+    <button *ngIf="isLoggedIn$ | async" mat-icon-button class="favorite-icon" [routerLink]="['dashboard']" matTooltip="Admin Dashboard"> 
+        <mat-icon>
+            account_circle
+        </mat-icon>
+    </button>
+    <button mat-icon-button [routerLink]="['cart']" matTooltip="Cart">
+        <mat-icon matBadge="{{amountInCart}}">
             shopping_cart
         </mat-icon>
     </button>
